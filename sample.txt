@@ -1,0 +1,6 @@
+[{"id":"test1","PartitionKey":"testpartition1","HasConsent":true,"Epoch":1,"Type":"survey","Subtype":"survey","Content":{"q1":1,"q2":1,"start_date":1667228400,"exposure_data":{"daily_summaries":[{"DateMillisSinceEpoch":1667228400000,"ExposureDetected":0},{"DateMillisSinceEpoch":1667574000000,"ExposureDetected":1},{"DateMillisSinceEpoch":1668438000000,"ExposureDetected":0}]}},"Timestamp":"2022-11-17T03:21:55+00:00"}
+,{"id":"test2","PartitionKey":"testpartition1","HasConsent":true,"Epoch":2,"Type":"survey","Subtype":"survey","Content":{"q1":2,"q2":2,"start_date":1667228400},"Timestamp":"2022-11-17T03:21:55+00:00"}
+,{"id":"test3","PartitionKey":"testpartition1","HasConsent":true,"Epoch":3,"Type":"survey","Subtype":"survey","Content":{"q1":null,"q2":3,"start_date":1667228400},"Timestamp":"2022-11-17T03:21:55+00:00"}
+,{"id":"test4","PartitionKey":"testpartition1","HasConsent":true,"Epoch":4,"Type":"survey","Subtype":"survey","Content":{"q1":3,"q2":null,"start_date":1667228400},"Timestamp":"2022-11-17T03:21:55+00:00"}
+,{"id":"test5","PartitionKey":"testpartition1","HasConsent":true,"Epoch":5,"Type":"survey","Subtype":"survey","Content":{"q1":4,"q2":1,"start_date":null},"Timestamp":"2022-11-17T03:21:55+00:00"}
+,{"id":"test6","PartitionKey":"testpartition1","HasConsent":true,"Epoch":6,"Type":"survey","Subtype":"survey","Timestamp":"2022-11-17T03:21:55+00:00"}]
