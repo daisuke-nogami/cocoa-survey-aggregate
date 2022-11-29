@@ -19,29 +19,68 @@ sample.txtに作ったサンプルデータは、以下の6件の回答を含み
 
 ```
 Total records: 6
-Q1 answers:
-N/A     2
-1       1
-2       1
-3       1
-4       1
-5       0
-6       0
-7       0
-8       0
-9       0
-Q2 answers:
-N/A     2
-1       2
-2       1
-3       1
-Start_date answers:
-N/A     1
-2022/11/01      4
-Exposure_data counts:
-N/A     4
-3       1
-Exposure_notify counts:
-N/A     0
-1       1
+年代別回答者数:
+Q1	count
+1	1
+2	1
+N/A	2
+3	1
+4	1
+
+通勤・通学の有無別回答者数:
+Q2	count
+1	2
+2	1
+3	1
+N/A	2
+
+年代別×通勤・通学の有無別回答者数:
+Q1	Q2	count
+1	1	1
+2	2	1
+N/A	3	1
+3	N/A	1
+4	1	1
+N/A	N/A	1
+
+インストール時期別回答者数:
+Q3	count
+2022/11/01	4
+	2
+
+回答者単位の通算通知発生回数別回答者数:
+Exposure_notify_count	count
+1	1
+N/A	5
+
+年代別:
+Q1	Exposure_notify_count	count
+1	1	1
+2	N/A	1
+N/A	N/A	2
+3	N/A	1
+4	N/A	1
+
+通勤通学の有無別:
+Q2	Exposure_notify_count	count
+1	1	1
+2	N/A	1
+3	N/A	1
+N/A	N/A	2
+1	N/A	1
+
+日次通知発生回数:
+Exposure_notify_date	count
+2022/11/05	1
+
+回答者単位の通算接触判定発生回数別回答者数:
+Exposure_detection_count	count
+3	1
+N/A	5
+
+日次接触判定発生発生回数:
+Exposure_detection_date	count
+2022/11/01	1
+2022/11/05	1
+2022/11/15	1
 ```
