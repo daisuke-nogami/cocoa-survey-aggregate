@@ -288,6 +288,69 @@ ans_bydate_q3	2022/11/05	2022-11-14	1
 ans_bydate_q3	2022/11/05	2022-11-15	1
 ans_bydate_q3	2022/11/05	2022-11-16	1
 
+通勤通学の有無xインストール月別:
+LABEL	Q2	Q3	date	count
+ans_bydate_q2q3m	1	2022/11	2022-11-01	1
+ans_bydate_q2q3m	1	2022/11	2022-11-02	1
+ans_bydate_q2q3m	1	2022/11	2022-11-03	1
+ans_bydate_q2q3m	1	2022/11	2022-11-04	1
+ans_bydate_q2q3m	1	2022/11	2022-11-05	1
+ans_bydate_q2q3m	1	2022/11	2022-11-06	1
+ans_bydate_q2q3m	1	2022/11	2022-11-07	1
+ans_bydate_q2q3m	1	2022/11	2022-11-08	1
+ans_bydate_q2q3m	1	2022/11	2022-11-09	1
+ans_bydate_q2q3m	1	2022/11	2022-11-10	1
+ans_bydate_q2q3m	1	2022/11	2022-11-11	1
+ans_bydate_q2q3m	1	2022/11	2022-11-12	1
+ans_bydate_q2q3m	1	2022/11	2022-11-13	1
+ans_bydate_q2q3m	1	2022/11	2022-11-14	1
+ans_bydate_q2q3m	1	2022/11	2022-11-15	1
+ans_bydate_q2q3m	1	2022/11	2022-11-16	1
+ans_bydate_q2q3m	2	2022/11	2022-11-01	1
+ans_bydate_q2q3m	2	2022/11	2022-11-02	1
+ans_bydate_q2q3m	2	2022/11	2022-11-03	1
+ans_bydate_q2q3m	2	2022/11	2022-11-04	1
+ans_bydate_q2q3m	2	2022/11	2022-11-05	1
+ans_bydate_q2q3m	2	2022/11	2022-11-06	1
+ans_bydate_q2q3m	2	2022/11	2022-11-07	1
+ans_bydate_q2q3m	2	2022/11	2022-11-08	1
+ans_bydate_q2q3m	2	2022/11	2022-11-09	1
+ans_bydate_q2q3m	2	2022/11	2022-11-10	1
+ans_bydate_q2q3m	2	2022/11	2022-11-11	1
+ans_bydate_q2q3m	2	2022/11	2022-11-12	1
+ans_bydate_q2q3m	2	2022/11	2022-11-13	1
+ans_bydate_q2q3m	2	2022/11	2022-11-14	1
+ans_bydate_q2q3m	2	2022/11	2022-11-15	1
+ans_bydate_q2q3m	2	2022/11	2022-11-16	1
+ans_bydate_q2q3m	3	2022/11	2022-11-05	1
+ans_bydate_q2q3m	3	2022/11	2022-11-06	1
+ans_bydate_q2q3m	3	2022/11	2022-11-07	1
+ans_bydate_q2q3m	3	2022/11	2022-11-08	1
+ans_bydate_q2q3m	3	2022/11	2022-11-09	1
+ans_bydate_q2q3m	3	2022/11	2022-11-10	1
+ans_bydate_q2q3m	3	2022/11	2022-11-11	1
+ans_bydate_q2q3m	3	2022/11	2022-11-12	1
+ans_bydate_q2q3m	3	2022/11	2022-11-13	1
+ans_bydate_q2q3m	3	2022/11	2022-11-14	1
+ans_bydate_q2q3m	3	2022/11	2022-11-15	1
+ans_bydate_q2q3m	3	2022/11	2022-11-16	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-01	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-02	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-03	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-04	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-05	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-06	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-07	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-08	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-09	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-10	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-11	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-12	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-13	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-14	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-15	1
+ans_bydate_q2q3m	N/A	2022/11	2022-11-16	1
+
 回答者単位の通算通知発生回数別回答者数:
 LABEL	Exposure_notify_count	count
 notify_person_all	1	1
@@ -314,6 +377,13 @@ notify_person_q1q2	2	2	N/A	1
 notify_person_q1q2	N/A	3	N/A	1
 notify_person_q1q2	3	N/A	N/A	1
 
+通勤通学の有無xインストール月別:
+LABEL	Q2	Q3	Exposure_notify_count	count
+notify_person_q2q3m	1	2022/11	1	1
+notify_person_q2q3m	2	2022/11	N/A	1
+notify_person_q2q3m	3	2022/11	N/A	1
+notify_person_q2q3m	N/A	2022/11	N/A	1
+
 日次通知発生回数:
 LABEL	Exposure_notify_date	count
 notify_daily_all	2022/11/05	1
@@ -330,14 +400,70 @@ notify_daily_q2	1	2022/11/05	1
 LABEL	Q1	Q2	Exposure_notify_date	count
 notify_daily_q1q2	1	1	2022/11/05	1
 
+通勤通学の有無xインストール月別:
+LABEL	Q2	Q3	Exposure_notify_date	count
+notify_daily_q2q3m	1	2022/11	2022/11/05	1
+
 回答者単位の通算陽性者信号受信日数別回答者数:
 LABEL	Exposure_detection_count	count
 detection_person_all	3	1
 detection_person_all	N/A	3
+
+年代別:
+LABEL	Q1	Exposure_detection_count	count
+detection_person_q1	1	3	1
+detection_person_q1	2	N/A	1
+detection_person_q1	N/A	N/A	1
+detection_person_q1	3	N/A	1
+
+通勤通学の有無別:
+LABEL	Q2	Exposure_detection_count	count
+detection_person_q2	1	3	1
+detection_person_q2	2	N/A	1
+detection_person_q2	3	N/A	1
+detection_person_q2	N/A	N/A	1
+
+年代×通勤通学の有無別:
+LABEL	Q1	Q2	Exposure_detection_count	count
+detection_person_q1q2	1	1	3	1
+detection_person_q1q2	2	2	N/A	1
+detection_person_q1q2	N/A	3	N/A	1
+detection_person_q1q2	3	N/A	N/A	1
+
+通勤通学の有無xインストール月別:
+LABEL	Q2	Q3	Exposure_detection_count	count
+detection_person_q2q3m	1	2022/11	3	1
+detection_person_q2q3m	2	2022/11	N/A	1
+detection_person_q2q3m	3	2022/11	N/A	1
+detection_person_q2q3m	N/A	2022/11	N/A	1
 
 日次陽性者信号受信日数:
 LABEL	Exposure_detection_date	count
 detection_daily_all	2022/11/01	1
 detection_daily_all	2022/11/05	1
 detection_daily_all	2022/11/15	1
+
+年代別:
+LABEL	Q1	Exposure_detection_date	count
+detection_daily_q1	1	2022/11/01	1
+detection_daily_q1	1	2022/11/05	1
+detection_daily_q1	1	2022/11/15	1
+
+通勤通学の有無別:
+LABEL	Q2	Exposure_detection_date	count
+detection_daily_q2	1	2022/11/01	1
+detection_daily_q2	1	2022/11/05	1
+detection_daily_q2	1	2022/11/15	1
+
+年代×通勤通学の有無別:
+LABEL	Q1	Q2	Exposure_detection_date	count
+detection_daily_q1q2	1	1	2022/11/01	1
+detection_daily_q1q2	1	1	2022/11/05	1
+detection_daily_q1q2	1	1	2022/11/15	1
+
+通勤通学の有無xインストール月別:
+LABEL	Q2	Q3	Exposure_detection_date	count
+detection_daily_q2q3m	1	2022/11	2022/11/01	1
+detection_daily_q2q3m	1	2022/11	2022/11/05	1
+detection_daily_q2q3m	1	2022/11	2022/11/15	1
 ```

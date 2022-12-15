@@ -12,29 +12,34 @@ ans_bydate_q1 = {}   ## 年代別
 ans_bydate_q2 = {}   ## 通勤・通学の有無別
 ans_bydate_q1q2 = {} ## 年代別×通勤・通学の有無別
 ans_bydate_q3 = {}   ## インストール時期別
+ans_bydate_q2q3m = {}   ## 通勤・通学の有無xインストール月別
 
 ## 回答者単位の通算通知発生回数別回答者数
 notify_person_all = {} ### 単純合計
 notify_person_q1 = {}  ### 年代別
 notify_person_q2 = {}  ### 通勤・通学の有無別
 notify_person_q1q2 = {}  ### 年代×通勤・通学の有無別
+notify_person_q2q3m = {}  ### 通勤・通学の有無xインストール月別
 ### インストール時期(年月)別
 ## 日次通知発生回数
 notify_daily_all = {} ### 単純合計
 notify_daily_q1 = {}   ### 年代別
 notify_daily_q2 = {}   ### 通勤・通学の有無別
 notify_daily_q1q2 = {} ### 年代×通勤・通学の有無別
+notify_daily_q2q3m = {}   ### 通勤・通学の有無xインストール月別
 
 ## 回答者単位の通算陽性者信号受信日数別回答者数
 detection_person_all = {} ### 単純合計
 detection_person_q1 = {} ### 年代別
 detection_person_q2 = {} ### 通勤・通学の有無別
 detection_person_q1q2 = {} ### 年代×通勤・通学の有無別
+detection_person_q2q3m = {} ### 通勤・通学の有無xインストール月別
 ## 日次陽性者信号受信日数
 detection_daily_all = {} ### 単純合計
 detection_daily_q1 = {} ### 年代別
 detection_daily_q2 = {} ### 通勤・通学の有無別
 detection_daily_q1q2 = {} ### 年代×通勤・通学の有無別
+detection_daily_q2q3m = {} ### 通勤・通学の有無xインストール月別
 
 # ハッシュを使ってカウントするための関数(keyが無いときに+=1が出来ないので)
 def countup(var, key)
@@ -101,8 +106,10 @@ if ( ARGV.size ) then
       end
       ## start_date
       tmp_start_date = nil
+      tmp_start_month = nil
       if (ans.has_key?('Content') && ans['Content'].has_key?('start_date') && ans['Content']['start_date']) then
-        tmp_start_date = Time.at(ans['Content']['start_date']).strftime("%Y/%m/%d")
+        tmp_start_date = Time.at(ans['Content']['start_date']).strftime("%Y/%m/%d") # インストール日
+        tmp_start_month = Time.at(ans['Content']['start_date']).strftime("%Y/%m")   # インストール月
       end
       ## exposure_data
       if (ans.has_key?('Content') && ans['Content'].has_key?('exposure_data')) then
@@ -153,12 +160,14 @@ if ( ARGV.size ) then
           countup(ans_bydate_q2,"#{tmp_q2},#{d}")             ## 通勤・通学の有無別
           countup(ans_bydate_q1q2,"#{tmp_q1},#{tmp_q2},#{d}") ## 年代別×通勤・通学の有無別
           countup(ans_bydate_q3,"#{tmp_start_date},#{d}")     ## インストール時期別
+          countup(ans_bydate_q2q3m,"#{tmp_q2},#{tmp_start_month},#{d}") ## 通勤・通学の有無xインストール月別
         }
         ## 回答者単位の通算通知発生回数別回答者数
         countup(notify_person_all,tmp_exposure_notify_count) ### 単純合計
         countup(notify_person_q1,"#{tmp_q1},#{tmp_exposure_notify_count}") ### 年代別
         countup(notify_person_q2,"#{tmp_q2},#{tmp_exposure_notify_count}") ### 通勤通学の有無別
         countup(notify_person_q1q2,"#{tmp_q1},#{tmp_q2},#{tmp_exposure_notify_count}") ### 通勤通学の有無別
+        countup(notify_person_q2q3m,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_notify_count}") ### 通勤通学の有無xインストール月別
         ## 日次通知発生回数
         if tmp_exposure_data then
           tmp_exposure_data.each { |ds|
@@ -167,6 +176,7 @@ if ( ARGV.size ) then
               countup(notify_daily_q1,"#{tmp_q1},#{ds[0]}")             ## 年代別
               countup(notify_daily_q2,"#{tmp_q2},#{ds[0]}")             ## 通勤・通学の有無別
               countup(notify_daily_q1q2,"#{tmp_q1},#{tmp_q2},#{ds[0]}") ## 年代別×通勤・通学の有無別
+              countup(notify_daily_q2q3m,"#{tmp_q2},#{tmp_start_month},#{ds[0]}")             ## 通勤・通学の有無xインストール月別
             end
           }
         end
@@ -175,6 +185,7 @@ if ( ARGV.size ) then
         countup(detection_person_q1,"#{tmp_q1},#{tmp_exposure_data_count}") ### 年代別
         countup(detection_person_q2,"#{tmp_q2},#{tmp_exposure_data_count}") ### 通勤通学の有無別
         countup(detection_person_q1q2,"#{tmp_q1},#{tmp_q2},#{tmp_exposure_data_count}") ### 通勤通学の有無別
+        countup(detection_person_q2q3m,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_data_count}") ### 通勤通学の有無xインストール月別
         ## 陽性者信号受信日数
         if tmp_exposure_data then
           tmp_exposure_data.each { |ds|
@@ -182,6 +193,7 @@ if ( ARGV.size ) then
             countup(detection_daily_q1,"#{tmp_q1},#{ds[0]}")             ## 年代別
             countup(detection_daily_q2,"#{tmp_q2},#{ds[0]}")             ## 通勤・通学の有無別
             countup(detection_daily_q1q2,"#{tmp_q1},#{tmp_q2},#{ds[0]}") ## 年代別×通勤・通学の有無別
+            countup(detection_daily_q2q3m,"#{tmp_q2},#{tmp_start_month},#{ds[0]}")             ## 通勤・通学の有無xインストール月別
           }
         end
       end
@@ -217,6 +229,9 @@ if ( ARGV.size ) then
     f.print("インストール時期別: \nLABEL\tQ3\tdate\tcount\n")
     hashprint("ans_bydate_q3", f, ans_bydate_q3)
     f.print("\n")
+    f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tdate\tcount\n")
+    hashprint("ans_bydate_q2q3m", f, ans_bydate_q2q3m)
+    f.print("\n")
     f.print("回答者単位の通算通知発生回数別回答者数: \nLABEL\tExposure_notify_count\tcount\n")
     hashprint("notify_person_all", f, notify_person_all)
     f.print("\n")
@@ -228,6 +243,9 @@ if ( ARGV.size ) then
     f.print("\n")
     f.print("年代×通勤通学の有無別: \nLABEL\tQ1\tQ2\tExposure_notify_count\tcount\n")
     hashprint("notify_person_q1q2", f, notify_person_q1q2)
+    f.print("\n")
+    f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tExposure_notify_count\tcount\n")
+    hashprint("notify_person_q2q3m", f, notify_person_q2q3m)
     f.print("\n")
     f.print("日次通知発生回数: \nLABEL\tExposure_notify_date\tcount\n")
     hashprint("notify_daily_all", f, notify_daily_all)
@@ -241,6 +259,9 @@ if ( ARGV.size ) then
     f.print("年代×通勤通学の有無別: \nLABEL\tQ1\tQ2\tExposure_notify_date\tcount\n")
     hashprint("notify_daily_q1q2", f, notify_daily_q1q2)
     f.print("\n")
+    f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tExposure_notify_date\tcount\n")
+    hashprint("notify_daily_q2q3m", f, notify_daily_q2q3m)
+    f.print("\n")
     f.print("回答者単位の通算陽性者信号受信日数別回答者数: \nLABEL\tExposure_detection_count\tcount\n")
     hashprint("detection_person_all", f, detection_person_all)
     f.print("\n")
@@ -253,6 +274,9 @@ if ( ARGV.size ) then
     f.print("年代×通勤通学の有無別: \nLABEL\tQ1\tQ2\tExposure_detection_count\tcount\n")
     hashprint("detection_person_q1q2", f, detection_person_q1q2)
     f.print("\n")
+    f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tExposure_detection_count\tcount\n")
+    hashprint("detection_person_q2q3m", f, detection_person_q2q3m)
+    f.print("\n")
     f.print("日次陽性者信号受信日数: \nLABEL\tExposure_detection_date\tcount\n")
     hashprint("detection_daily_all", f, detection_daily_all)
     f.print("\n")
@@ -264,6 +288,9 @@ if ( ARGV.size ) then
     f.print("\n")
     f.print("年代×通勤通学の有無別: \nLABEL\tQ1\tQ2\tExposure_detection_date\tcount\n")
     hashprint("detection_daily_q1q2", f, detection_daily_q1q2)
+    f.print("\n")
+    f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tExposure_detection_date\tcount\n")
+    hashprint("detection_daily_q2q3m", f, detection_daily_q2q3m)
     f.print("\n")
   end
 end
