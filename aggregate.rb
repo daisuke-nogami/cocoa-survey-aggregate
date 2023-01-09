@@ -42,6 +42,9 @@ detection_daily_q2 = {} ### 通勤・通学の有無別
 detection_daily_q1q2 = {} ### 年代×通勤・通学の有無別
 detection_daily_q2q3m = {} ### 通勤・通学の有無xインストール月別
 
+# 開始時刻を表示する
+print "Start time: #{Time.now}\n"
+
 # ハッシュを使ってカウントするための関数(keyが無いときに+=1が出来ないので)
 def countup(var, key)
   if (var.has_key?(key)) then
@@ -78,14 +81,17 @@ if ( ARGV.size ) then
     tgt_file_cnt += 1
     print "Checking source file #{tgt} (#{tgt_file_cnt}/#{ARGV.size}) size...\n"
     total_lines = `wc #{tgt}`.split(/ +/)[1].to_i
+    # 処理開始直前の時刻を保存しておき
+    file_start_time = Time.now
+    print "#{tgt} aggregation start time: #{file_start_time}\n"
     # 1行ずつ読み込んで処理する
     IO.foreach(tgt) { |x|
       # 処理行数をカウントし
       cnt += 1
       # 進捗を画面表示する（1%ごとに表示）
       if ( cnt*100/total_lines > last_percent ) then
-        print "Line: #{cnt} ( #{cnt*100/total_lines}% )\n"
         last_percent = cnt*100/total_lines
+        print "Line: #{cnt} ( #{cnt*100/total_lines}% ), elapsed #{(Time.now - file_start_time).round} sec., estimate #{((Time.now - file_start_time)/last_percent*(100-last_percent)).round} sec. remain.\n"
       end
       # 余分な文字を取り除いてJSONとして成立するようにしてから
       ans_raw = x.gsub(/^\u{FEFF}\[/,'').gsub(/^\[/,'').gsub(/(\]$)/,'').gsub(/(^,)/,'').gsub(/\n/,'')
