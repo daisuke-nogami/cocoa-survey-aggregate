@@ -1,5 +1,6 @@
 require 'json'
 require 'date'
+require 'time'
 
 # 結果を格納する変数群
 q1 = {}   ## 年代別回答者数
@@ -108,8 +109,16 @@ if ( ARGV.size ) then
       tmp_start_date = nil
       tmp_start_month = nil
       if (ans.has_key?('Content') && ans['Content'].has_key?('start_date') && ans['Content']['start_date']) then
-        tmp_start_date = Time.at(ans['Content']['start_date']).strftime("%Y/%m/%d") # インストール日
-        tmp_start_month = Time.at(ans['Content']['start_date']).strftime("%Y/%m")   # インストール月
+        if (Time.at(ans['Content']['start_date']) < Time.at(Time.parse('2020/06/19'))) then
+          tmp_start_date = '2020/06/19' # アプリ利用開始日が2020/06/18以前の場合は、初回リリース日を利用開始日とする
+          tmp_start_month = '2020/06'   # アプリ利用開始日が2020/06/18以前の場合は、初回リリース日を利用開始日とする
+        elsif (Time.at(ans['Content']['start_date']) > Time.at(Time.parse('2022/11/16'))) then
+          tmp_start_date = "ERROR(After_register_stop)"  # アプリ利用開始日が陽性登録終了日以降の場合はエラー回答とする
+          tmp_start_month = "ERROR(After_register_stop)" # アプリ利用開始日が陽性登録終了日以降の場合はエラー回答とする
+        else
+          tmp_start_date = Time.at(ans['Content']['start_date']).strftime("%Y/%m/%d") # インストール日
+          tmp_start_month = Time.at(ans['Content']['start_date']).strftime("%Y/%m")   # インストール月
+        end
       end
       ## exposure_data
       if (ans.has_key?('Content') && ans['Content'].has_key?('exposure_data')) then
@@ -146,7 +155,7 @@ if ( ARGV.size ) then
       countup(q1q2,"#{tmp_q1},#{tmp_q2}") ## 年代別×通勤・通学の有無別回答者数
       countup(q3,tmp_start_date) ## インストール時期別回答者数
       ## これ以降はアプリの利用開始日を回答した人に絞って集計
-      if( tmp_start_date ) then
+      if( tmp_start_date && tmp_start_date != 'ERROR(After_register_stop)') then
         ## インストール期間を展開
         if ( tmp_start_date > '2022/04/07' ) then
           tmp_first_date = tmp_start_date
