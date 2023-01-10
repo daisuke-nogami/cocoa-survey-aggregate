@@ -118,7 +118,7 @@ if ( ARGV.size ) then
         if (Time.at(ans['Content']['start_date']) < Time.at(Time.parse('2020/06/19'))) then
           tmp_start_date = '2020/06/19' # アプリ利用開始日が2020/06/18以前の場合は、初回リリース日を利用開始日とする
           tmp_start_month = '2020/06'   # アプリ利用開始日が2020/06/18以前の場合は、初回リリース日を利用開始日とする
-        elsif (Time.at(ans['Content']['start_date']) > Time.at(Time.parse('2022/11/16'))) then
+        elsif (Time.at(ans['Content']['start_date']) > Time.at(Time.parse('2022/11/17'))) then
           tmp_start_date = "ERROR(After_register_stop)"  # アプリ利用開始日が陽性登録終了日以降の場合はエラー回答とする
           tmp_start_month = "ERROR(After_register_stop)" # アプリ利用開始日が陽性登録終了日以降の場合はエラー回答とする
         else
