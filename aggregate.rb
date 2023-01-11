@@ -91,7 +91,7 @@ if ( ARGV.size ) then
       # 進捗を画面表示する（1%ごとに表示）
       if ( cnt*100/total_lines > last_percent ) then
         last_percent = cnt*100/total_lines
-        print "Line: #{cnt} ( #{cnt*100/total_lines}% ), elapsed #{(Time.now - file_start_time).round} sec., estimate #{((Time.now - file_start_time)/last_percent*(100-last_percent)).round} sec. remain.\n"
+        print "Line: #{cnt} ( #{cnt*100/total_lines}% ), Elapsed time: #{(Time.now - file_start_time).round} second(s). Estimated remaining time: #{((Time.now - file_start_time)/last_percent*(100-last_percent)).round} second(s) =  #{(((Time.now - file_start_time)/last_percent*(100-last_percent))/60).round} minute(s).\n"
       end
       # 余分な文字を取り除いてJSONとして成立するようにしてから
       ans_raw = x.gsub(/^\u{FEFF}\[/,'').gsub(/^\[/,'').gsub(/(\]$)/,'').gsub(/(^,)/,'').gsub(/\n/,'')
@@ -131,7 +131,9 @@ if ( ARGV.size ) then
         tmp_exposure_data = {}
         if (ans['Content']['exposure_data'] && ans['Content']['exposure_data'].has_key?('daily_summaries')) then
           ans['Content']['exposure_data']['daily_summaries'].each { |ds|
-            tmp_exposure_data[Time.at(ds['DateMillisSinceEpoch']/1000).strftime("%Y/%m/%d")] = ds['ExposureDetected']
+            if ( tmp_start_date && tmp_start_date != 'ERROR(After_register_stop)' && tmp_start_date <= Time.at(ds['DateMillisSinceEpoch']/1000).strftime("%Y/%m/%d") ) then
+              tmp_exposure_data[Time.at(ds['DateMillisSinceEpoch']/1000).strftime("%Y/%m/%d")] = ds['ExposureDetected']
+            end
           }
         end
       else
