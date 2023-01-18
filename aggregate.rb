@@ -17,10 +17,12 @@ ans_bydate_q2q3m = {}   ## 通勤・通学の有無xインストール月別
 
 ## 回答者単位の通算通知発生回数別回答者数
 notify_person_all = {} ### 単純合計
+notify_person_all_till_sept = {} ### 単純合計
 notify_person_q1 = {}  ### 年代別
 notify_person_q2 = {}  ### 通勤・通学の有無別
 notify_person_q1q2 = {}  ### 年代×通勤・通学の有無別
 notify_person_q2q3m = {}  ### 通勤・通学の有無xインストール月別
+notify_person_q2q3m_till_sept = {}  ### 通勤・通学の有無xインストール月別
 ### インストール時期(年月)別
 ## 日次通知発生回数
 notify_daily_all = {} ### 単純合計
@@ -31,10 +33,12 @@ notify_daily_q2q3m = {}   ### 通勤・通学の有無xインストール月別
 
 ## 回答者単位の通算陽性者信号受信日数別回答者数
 detection_person_all = {} ### 単純合計
+detection_person_all_till_sept = {} ### 単純合計
 detection_person_q1 = {} ### 年代別
 detection_person_q2 = {} ### 通勤・通学の有無別
 detection_person_q1q2 = {} ### 年代×通勤・通学の有無別
 detection_person_q2q3m = {} ### 通勤・通学の有無xインストール月別
+detection_person_q2q3m_till_sept = {} ### 通勤・通学の有無xインストール月別
 ## 日次陽性者信号受信日数
 detection_daily_all = {} ### 単純合計
 detection_daily_q1 = {} ### 年代別
@@ -142,19 +146,31 @@ if ( ARGV.size ) then
       ## exposure_data_count (回答者の陽性者信号受信日数合計)
       if (tmp_exposure_data) then
         tmp_exposure_data_count = tmp_exposure_data.size
+        tmp_exposure_data_count_till_sept = 0
+        tmp_exposure_data.each { |ds|
+          if (ds[0] < '2022/10/01') then
+            tmp_exposure_data_count_till_sept += 1
+          end
+        }
       else
         tmp_exposure_data_count = "N/A"
+        tmp_exposure_data_count_till_sept = "N/A"
       end
       ## exposure_notify_count (回答者の接触通知発生回数合計)
       if tmp_exposure_data then
         tmp_exposure_notify_count = 0
+        tmp_exposure_notify_count_till_sept = 0
         tmp_exposure_data.each { |ds|
           if (ds[1] > 0) then
             tmp_exposure_notify_count += 1
+            if (ds[0] < '2022/10/01') then
+              tmp_exposure_notify_count_till_sept += 1
+            end
           end
         }
       else
         tmp_exposure_notify_count = "N/A"
+        tmp_exposure_notify_count_till_sept = "N/A"
       end
 
       # 集計をする
@@ -181,10 +197,12 @@ if ( ARGV.size ) then
         }
         ## 回答者単位の通算通知発生回数別回答者数
         countup(notify_person_all,tmp_exposure_notify_count) ### 単純合計
+        countup(notify_person_all_till_sept,tmp_exposure_notify_count_till_sept) ### 単純合計
         countup(notify_person_q1,"#{tmp_q1},#{tmp_exposure_notify_count}") ### 年代別
         countup(notify_person_q2,"#{tmp_q2},#{tmp_exposure_notify_count}") ### 通勤通学の有無別
         countup(notify_person_q1q2,"#{tmp_q1},#{tmp_q2},#{tmp_exposure_notify_count}") ### 通勤通学の有無別
         countup(notify_person_q2q3m,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_notify_count}") ### 通勤通学の有無xインストール月別
+        countup(notify_person_q2q3m_till_sept,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_notify_count_till_sept}") ### 通勤通学の有無xインストール月別
         ## 日次通知発生回数
         if tmp_exposure_data then
           tmp_exposure_data.each { |ds|
@@ -199,10 +217,12 @@ if ( ARGV.size ) then
         end
         ## 回答者単位の通算陽性者信号受信日数別回答者数
         countup(detection_person_all,tmp_exposure_data_count) ### 単純合計
+        countup(detection_person_all_till_sept,tmp_exposure_data_count_till_sept) ### 単純合計
         countup(detection_person_q1,"#{tmp_q1},#{tmp_exposure_data_count}") ### 年代別
         countup(detection_person_q2,"#{tmp_q2},#{tmp_exposure_data_count}") ### 通勤通学の有無別
         countup(detection_person_q1q2,"#{tmp_q1},#{tmp_q2},#{tmp_exposure_data_count}") ### 通勤通学の有無別
         countup(detection_person_q2q3m,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_data_count}") ### 通勤通学の有無xインストール月別
+        countup(detection_person_q2q3m_till_sept,"#{tmp_q2},#{tmp_start_month},#{tmp_exposure_data_count_till_sept}") ### 通勤通学の有無xインストール月別
         ## 陽性者信号受信日数
         if tmp_exposure_data then
           tmp_exposure_data.each { |ds|
@@ -308,6 +328,18 @@ if ( ARGV.size ) then
     f.print("\n")
     f.print("通勤通学の有無xインストール月別: \nLABEL\tQ2\tQ3\tExposure_detection_date\tcount\n")
     hashprint("detection_daily_q2q3m", f, detection_daily_q2q3m)
+    f.print("\n")
+    f.print("回答者単位の通算通知発生回数別回答者数(9月まで): \nLABEL\tExposure_notify_count\tcount\n")
+    hashprint("notify_person_all_till_sept", f, notify_person_all_till_sept)
+    f.print("\n")
+    f.print("回答者単位の通算陽性者信号受信日数別回答者数(9月まで): \nLABEL\tExposure_detection_count\tcount\n")
+    hashprint("detection_person_all_till_sept", f, detection_person_all_till_sept)
+    f.print("\n")
+    f.print("通勤通学の有無xインストール月別(9月まで): \nLABEL\tQ2\tQ3\tExposure_notify_count_till_sept\tcount\n")
+    hashprint("notify_person_q2q3m_till_sept", f, notify_person_q2q3m_till_sept)
+    f.print("\n")
+    f.print("通勤通学の有無xインストール月別(9月まで): \nLABEL\tQ2\tQ3\tExposure_detection_count_till_sept\tcount\n")
+    hashprint("detection_person_q2q3m_till_sept", f, detection_person_q2q3m_till_sept)
     f.print("\n")
   end
 end
